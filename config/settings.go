@@ -33,20 +33,25 @@ func init() {
 		log.Fatalln(umsErr)
 	}
 
-	CommonFilePath = settings["commonFilePath"].(string)
-	SubtitleFilePath = settings["subtitleFilePath"].(string)
-	TorrentFilePath = settings["torrentFilePath"].(string)
 	SubtitleExts = strings.Split(settings["subtitleExts"].(string), ",")
 	TransmissionCommands = strings.Split(settings["transmissionCommands"].(string), ",")
+
+	log.Println("subtitleExts", SubtitleExts)
+	log.Println("transmissionCommands", TransmissionCommands)
+
+	CommonFilePath = os.Getenv("COMMON_FILE_PATH")
+	SubtitleFilePath = os.Getenv("SUB_FILE_PATH")
+	TorrentFilePath = os.Getenv("TORRENT_FILE_PATH")
 
 	log.Println("commonFilePath", CommonFilePath)
 	log.Println("subtitleFilePath", SubtitleFilePath)
 	log.Println("torrentFilePath", TorrentFilePath)
-	log.Println("subtitleExts", SubtitleExts)
-	log.Println("transmissionCommands", TransmissionCommands)
 
-	Token = os.Getenv("TG_WONA_TOKEN")
-	ChatIdStr := os.Getenv("TG_WONA_CHAN_ID")
+	Token = os.Getenv("TG_TOKEN")
+	ChatIdStr := os.Getenv("TG_CHAT_ID")
+
+	log.Println("TG_TOKEN:", Token)
+	log.Println("TG_CHAI_ID:", ChatIdStr)
 
 	chatIdInt, chatIdErr := strconv.Atoi(ChatIdStr)
 	if chatIdErr != nil {
