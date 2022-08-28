@@ -8,27 +8,27 @@ import (
 	"telegram-bot/util"
 )
 
-var SubtitleFileChan = make(chan SubtitleFile)
+var CommonFileChan = make(chan CommonFile)
 
-type SubtitleFile struct {
+type CommonFile struct {
 	FileName string
 	File     tgbotapi.File
 }
 
-func addSubtitleFIle() {
+func addCommonFIle() {
 	go func() {
-		for subtitleFile := range SubtitleFileChan {
-			file := subtitleFile.File
+		for commonFile := range CommonFileChan {
+			file := commonFile.File
 			filePath := file.FilePath
 
 			//https://api.telegram.org/file/bot<token>/<file_path>
 			urlStrings := []string{"http://api.telegram.org/file/bot", config.Token, "/", filePath}
 			url := strings.Join(urlStrings, "")
 
-			subtitleFilePath := config.SubtitleFilePath + "/" + subtitleFile.FileName
+			subtitleFilePath := config.SubtitleFilePath + "/" + commonFile.FileName
 
 			receiveFile := util.GetFileByHttpRequest(url, subtitleFilePath)
-			log.Println("subtitle file received!", receiveFile.Name())
+			log.Println("common file received!", receiveFile.Name())
 		}
 	}()
 }

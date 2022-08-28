@@ -36,6 +36,7 @@ func init() {
 	transChan := transmission.TransChan
 	torrFileChan := transmission.TorrentFileChan
 	subFileChan := file.SubtitleFileChan
+	CommonFileChan := file.CommonFileChan
 
 	transRespChan := transmission.TransRespChan
 	go func() {
@@ -83,6 +84,11 @@ func init() {
 
 						} else {
 							log.Println("It is normal recvFile.", document.FileName)
+							commonFile := file.CommonFile{
+								FileName: document.FileName,
+								File:     recvFile,
+							}
+							CommonFileChan <- commonFile
 						}
 
 					} else {
