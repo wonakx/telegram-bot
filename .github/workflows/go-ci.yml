@@ -20,4 +20,7 @@ jobs:
 
     - name: Build
       run: go build -v ./...
+      
+    - name: Check file
+      run: ls .
 
