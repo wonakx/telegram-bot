@@ -19,7 +19,7 @@ jobs:
         go-version: 1.18
 
     - name: Build
-      run: go build -v ./...
+      run: go build -v
       
     - name: Check file
       run: ls .
@@ -28,6 +28,6 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: telegram-bot
-        path: telegram-bot
+        path: ./telegram-bot
         retention-days: 5
 
