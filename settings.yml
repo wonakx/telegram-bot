@@ -1,6 +1,2 @@
-subtitleFilePath: ./temp/subtitle
-commonFilePath: ./temp/common
-torrentFilePath: ./temp/torrent
-
 subtitleExts: srt,smi,SRT,SMI
 transmissionCommands: ta,del,add
