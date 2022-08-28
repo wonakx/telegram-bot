@@ -23,4 +23,11 @@ jobs:
       
     - name: Check file
       run: ls .
+      
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: telegram-bot
+        path: telegram-bot
+        retention-days: 5
 
