@@ -55,7 +55,7 @@ jobs:
         # execute post-commands after scp
         last_ssh: 
           ls -al /home/${{secrets.USERNAME}}/utils/telegram-bot
-          source /home/${{secrets.USERNAME}}/.bash_profile
+          . ~/.bash_profile
           /home/${{secrets.USERNAME}}/utils/telegram-bot/telegram-bot
 
 
