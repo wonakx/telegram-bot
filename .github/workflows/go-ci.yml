@@ -51,7 +51,7 @@ jobs:
           /home/${{secrets.USERNAME}}/utils/telegram-bot/deploy_telegram_bot.sh
         # scp from local to remote
         scp: |
-          './telegram*' => /home/${{secrets.USERNAME}}/utils/telegram-bot/
+          './telegram-bot' => /home/${{secrets.USERNAME}}/utils/telegram-bot/
         # execute post-commands after scp
         last_ssh: |
           ls -al /home/${{secrets.USERNAME}}/utils/telegram-bot
