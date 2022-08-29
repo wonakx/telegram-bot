@@ -48,7 +48,6 @@ jobs:
         connect_timeout: 30s
         # execute pre-commands before scp
         first_ssh: |
-          ls -al
         # scp from local to remote
         scp: |
           './telegram*' => /home/${{secrets.USERNAME}}/utils/telegram-bot/
