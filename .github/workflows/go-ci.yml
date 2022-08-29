@@ -30,4 +30,21 @@ jobs:
         name: telegram-bot
         path: ./telegram-bot-bin
         retention-days: 5
+        
+    - name: ssh deploy
+      uses: easingthemes/ssh-deploy@v2.2.11
+      with:
+        # Private Key
+        SSH_PRIVATE_KEY: ${{secrets.SERVER_PRIVATE_KEY}}
+        # Remote host
+        REMOTE_HOST: ${{secrets.HOST}}
+        # Remote user
+        REMOTE_USER: ${{secrets.USERNAME}}
+        # Remote port
+        REMOTE_PORT: ${{secrets.PORT}}
+        # Source directory
+        SOURCE: ./
+        # Target directory
+        TARGET: /home/${{secretes.USERNAME}}/utils/telegram-bot/
+
 
