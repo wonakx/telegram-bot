@@ -45,6 +45,6 @@ jobs:
         # Source directory
         SOURCE: ./
         # Target directory
-        TARGET: /home/${{secretes.USERNAME}}/utils/telegram-bot/
+        TARGET: /home/${{secrets.USERNAME}}/utils/telegram-bot/
 
 
