@@ -54,6 +54,6 @@ jobs:
           './telegram-bot' => /home/${{secrets.USERNAME}}/utils/telegram-bot/
         # execute post-commands after scp
         last_ssh: 
-          /home/${{secrets.USERNAME}}/utils/telegram-bot/telegram-bot &
+          /home/${{secrets.USERNAME}}/utils/telegram-bot/telegram-bot
 
 
