@@ -23,9 +23,9 @@ func commandHandler() {
 	go func(transChan <-chan TransCommand) {
 		for command := range transChan {
 			switch command.Command {
-			case "ta":
+			case "list":
 				log.Print("[" + command.Command + "] receive!\n")
-				TransRespChan <- "ta Resp!"
+				TransRespChan <- "list Resp!"
 			case "del":
 				log.Print("[" + command.Command + "] receive!, parmas: " + strings.Join(command.Parmas, " ") + "\n")
 				for _, p := range command.Parmas {

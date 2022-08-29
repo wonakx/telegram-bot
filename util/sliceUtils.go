@@ -1,6 +1,8 @@
 package util
 
-import "strings"
+import (
+	"strings"
+)
 
 func Contains(s []string, substr string) bool {
 	for _, v := range s {
