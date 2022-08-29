@@ -48,13 +48,13 @@ jobs:
         connect_timeout: 30s
         # execute pre-commands before scp
         first_ssh: |
-          source ~/.bash_profile
           /home/${{secrets.USERNAME}}/utils/telegram-bot/delete_telegram_bot.sh
         # scp from local to remote
         scp: |
           './telegram-bot' => /home/${{secrets.USERNAME}}/utils/telegram-bot/
         # execute post-commands after scp
-        last_ssh: 
-          /home/${{secrets.USERNAME}}/utils/telegram-bot/telegram-bot &
+        last_ssh: |
+          source ~/.bash_profile
+          && /home/${{secrets.USERNAME}}/utils/telegram-bot/telegram-bot &
 
 
