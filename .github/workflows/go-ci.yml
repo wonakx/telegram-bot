@@ -31,35 +31,10 @@ jobs:
         path: ./telegram-bot
         retention-days: 5
         
-    #- name: ssh-scp-ssh-pipelines
+    - name: ssh-scp-ssh-pipelines
       # You may pin to the exact commit or the version.
       # uses: cross-the-world/ssh-scp-ssh-pipelines@78e864b4890087a58248ff39320406971ca88b89
-      # uses: cross-the-world/ssh-scp-ssh-pipelines@v1.1.4
-      #with:
-        # ssh remote host
-        #host: ${{secrets.HOST}}
-        # ssh remote port
-        #port: ${{secrets.PORT}}
-        # ssh remote user
-        #user: ${{secrets.USERNAME}}
-        # ssh remote password
-        #pass: ${{secrets.PASSWORD}}
-        # connection timeout to remote host
-        #connect_timeout: 30s
-        # execute pre-commands before scp
-        #first_ssh: |
-        #  /home/${{secrets.USERNAME}}/utils/telegram-bot/deploy_telegram_bot.sh
-        # scp from local to remote
-        #scp: |
-        #  './telegram-bot' => /home/${{secrets.USERNAME}}/utils/telegram-bot/
-        # execute post-commands after scp
-        #last_ssh: |
-        #  ls -al /home/${{secrets.USERNAME}}/utils/telegram-bot
-        #  source ~/.bash_profile
-        #  /home/${{secrets.USERNAME}}/utils/telegram-bot/telegram-bot
-          
-    - name: ssh-pipeline
-      uses: cross-the-world/ssh-pipeline@v1.2.0
+      uses: cross-the-world/ssh-scp-ssh-pipelines@v1.1.4
       with:
         # ssh remote host
         host: ${{secrets.HOST}}
@@ -67,16 +42,18 @@ jobs:
         port: ${{secrets.PORT}}
         # ssh remote user
         user: ${{secrets.USERNAME}}
-        # content of ssh private key. ex raw content of ~/.ssh/id_rsa
-        # key: # optional
         # ssh remote password
         pass: ${{secrets.PASSWORD}}
         # connection timeout to remote host
         connect_timeout: 30s
-        # execute commands on ssh
-        script: |
+        # execute pre-commands before scp
+        first_ssh: |
           /home/${{secrets.USERNAME}}/utils/telegram-bot/deploy_telegram_bot.sh
-          scp -P ${{secrets.PORT}} ./telegram-bot ${{secrets.USERNAME}}@${{secrets.HOST}}:/home/${{secrets.USERNAME}}/utils/telegram-bot/
+        # scp from local to remote
+        scp: |
+          './telegram-bot' => /home/${{secrets.USERNAME}}/utils/telegram-bot/
+        # execute post-commands after scp
+        last_ssh: |
           ls -al /home/${{secrets.USERNAME}}/utils/telegram-bot
           source ~/.bash_profile
           /home/${{secrets.USERNAME}}/utils/telegram-bot/telegram-bot
