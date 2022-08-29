@@ -49,7 +49,7 @@ jobs:
         # execute pre-commands before scp
         first_ssh: |
           source ~/.bash_profile
-          | /home/${{secrets.USERNAME}}/utils/telegram-bot/delete_telegram_bot.sh
+          /home/${{secrets.USERNAME}}/utils/telegram-bot/delete_telegram_bot.sh
         # scp from local to remote
         scp: |
           './telegram-bot' => /home/${{secrets.USERNAME}}/utils/telegram-bot/
