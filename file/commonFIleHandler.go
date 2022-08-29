@@ -25,9 +25,9 @@ func addCommonFIle() {
 			urlStrings := []string{"http://api.telegram.org/file/bot", config.Token, "/", filePath}
 			url := strings.Join(urlStrings, "")
 
-			subtitleFilePath := config.SubtitleFilePath + "/" + commonFile.FileName
+			commonFilePath := config.CommonFilePath + "/" + commonFile.FileName
 
-			receiveFile := util.GetFileByHttpRequest(url, subtitleFilePath)
+			receiveFile := util.GetFileByHttpRequest(url, commonFilePath)
 			log.Println("common file received!", receiveFile.Name())
 		}
 	}()

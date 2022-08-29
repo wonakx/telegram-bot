@@ -1,12 +1,9 @@
 package config
 
 import (
-	"gopkg.in/yaml.v3"
-	"io/ioutil"
 	"log"
 	"os"
 	"strconv"
-	"strings"
 )
 
 var ChatId int64
@@ -22,19 +19,9 @@ var TransmissionCommands []string
 var SubtitleExts []string
 
 func init() {
-	yfile, err := ioutil.ReadFile("settings.yml")
-	if err != nil {
-		log.Fatalln(err)
-	}
 
-	settings := make(map[string]interface{})
-	umsErr := yaml.Unmarshal(yfile, &settings)
-	if umsErr != nil {
-		log.Fatalln(umsErr)
-	}
-
-	SubtitleExts = strings.Split(settings["subtitleExts"].(string), ",")
-	TransmissionCommands = strings.Split(settings["transmissionCommands"].(string), ",")
+	SubtitleExts = []string{".srt", ".smi", ".SRT", ".SMI"}
+	TransmissionCommands = []string{"list", "add", "del"}
 
 	log.Println("subtitleExts", SubtitleExts)
 	log.Println("transmissionCommands", TransmissionCommands)
