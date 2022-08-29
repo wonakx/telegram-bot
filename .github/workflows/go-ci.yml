@@ -19,7 +19,7 @@ jobs:
         go-version: 1.18
 
     - name: Build
-      run: go build -v -o ./telegram-bot-bin
+      run: go build -v -o ./telegram-bot
       
     - name: Check file
       run: ls .
