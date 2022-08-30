@@ -78,7 +78,7 @@ jobs:
         # private ssh key registered on the server
         PRIVATE_SSH_KEY: ${{ secrets.SERVER_PRIVATE_KEY }}
         # command to be executed
-        COMMAND: ls -al
+        COMMAND: ls -al && ls -alh
 
 
 
