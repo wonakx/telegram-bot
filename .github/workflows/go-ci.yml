@@ -47,6 +47,7 @@ jobs:
           source ~/.bash_profile
           cd ${{ secrets.TARGET_DIR }}
           ./deploy_telegram_bot.sh
+          exit
           
 
 
