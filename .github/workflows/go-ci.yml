@@ -75,7 +75,6 @@ jobs:
         script: |
           source ~/.bash_profile
           ls -al
-          ${{secrets.TARGET_DIR}}/delete_telegram_bot.sh
           scp -P ${{secrets.PORT}} ./telegram-bot ${{secrets.USERNAME}}@${{secrets.HOST}}:${{secrets.TARGET_DIR}}
           ${{secrets.TARGET_DIR}}/telegram-bot
 
