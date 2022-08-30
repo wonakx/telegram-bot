@@ -64,7 +64,7 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         source: "./telegram-bot"
-        target: "$${secrets.TARGET_DIR}}"
+        target: "${{secrets.TARGET_DIR}}"
 
 
 
