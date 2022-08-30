@@ -53,7 +53,7 @@ jobs:
         # private ssh key registered on the server
         PRIVATE_SSH_KEY: ${{ secrets.SERVER_PRIVATE_KEY }}
         # command to be executed
-        COMMAND: source ~/.bash_profile && ${{ secrets.TARGET_DIR }}/deploy_telegram_bot.sh > telegram_bot.log
+        COMMAND: source ~/.bash_profile && nohup ${{ secrets.TARGET_DIR }}/deploy_telegram_bot.sh & > ${{ secrets.TARGET_DIR }}/telegram_bot.log
 
 
 
