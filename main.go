@@ -19,6 +19,8 @@ func main() {
 	}
 	defer logFile.Close()
 
+	log.Println("Log File:", logFile.Name())
+
 	log.SetOutput(logFile)
 
 	time.Sleep(999999 * time.Hour)
