@@ -65,6 +65,20 @@ jobs:
         port: ${{ secrets.PORT }}
         source: "./telegram-bot"
         target: "${{secrets.TARGET_DIR}}"
+        
+    - name: SSH Command
+      uses: D3rHase/ssh-command-action@v0.2.1
+      with:
+        # hostname / IP of the server
+        HOST: ${{ secrets.HOST }}
+        # ssh port of the server
+        PORT: ${{ secrets.PORT }}
+        # user of the server
+        USER: ${{ secrets.USERNAME }}
+        # private ssh key registered on the server
+        PRIVATE_SSH_KEY: ${{ secrets.SERVER_PRIVATE_KEY }}
+        # command to be executed
+        COMMAND: ls -al
 
 
 
