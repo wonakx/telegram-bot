@@ -22,7 +22,6 @@ var transRespChan = transmission.TransRespChan
 func init() {
 
 	Bot, _ = tgbotapi.NewBotAPI(config.Token)
-	Bot.Debug = false
 
 	log.Printf("Authorized on account %s", Bot.Self.UserName)
 
