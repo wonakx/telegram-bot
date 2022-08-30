@@ -46,7 +46,7 @@ jobs:
         script: |
           source ~/.bash_profile
           cd ${{ secrets.TARGET_DIR }}
-          nohup sh ./deploy_telegram_bot.sh & disown
+          nohup sh ./deploy_telegram_bot.sh &
           
 
 
