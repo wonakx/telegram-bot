@@ -59,7 +59,7 @@ jobs:
         script: |
           source ~/.bash_profile
           cd ${{ secrets.TARGET_DIR }}
-          service telegram-bot restart
+          sh ${{ secrets.TARGET_DIR }}/telegram_bot.sh restart
           
 
 
