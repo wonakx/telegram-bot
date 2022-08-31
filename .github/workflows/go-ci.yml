@@ -55,11 +55,13 @@ jobs:
         username: ${{ secrets.USERNAME }}
         # content of ssh private key. ex raw content of ~/.ssh/id_rsa
         key: ${{ secrets.SERVER_PRIVATE_KEY }}
+        script_stop: true
         # execute commands
         script: |
           source ~/.bash_profile
           cd ${{ secrets.TARGET_DIR }}
           nohup sh telegram_bot.sh restart 2>&1 & ${{ secrets.TARGET_DIR }}/log/telegram_bot.std
+          
  
 
 
