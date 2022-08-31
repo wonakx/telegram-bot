@@ -59,12 +59,13 @@ func checkCurrentList() {
 			log.Println(err)
 		}
 
-		log.Println("Cmd Result:", outb.String(), "err:", errb.String())
+		log.Println("Cmd Result:\n", outb.String())
 
 		torrentList := outb.String()
 		split := strings.Split(torrentList, "\n")
 		log.Println(strings.Join(split, " "))
-		for k, row := range split[1 : len(split)-2] {
+		log.Println(len(split))
+		for k, row := range split[1:len(split)] {
 			log.Print("idx:", k, "value:", row, " ")
 			fields := strings.Fields(row)
 			for idx, field := range fields {
