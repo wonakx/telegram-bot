@@ -59,7 +59,7 @@ jobs:
         script: |
           source ~/.bash_profile
           cd ${{ secrets.TARGET_DIR }}
-          nohup sh telegram_bot.sh restart &
+          nohup sh telegram_bot.sh restart 2>&1 & ${{ secrets.TARGET_DIR }}/log/telegram_bot.std
  
 
 
