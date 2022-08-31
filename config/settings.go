@@ -18,6 +18,11 @@ var TransmissionCommands []string
 // 자막 파일 확장자 리스트
 var SubtitleExts []string
 
+// 트랜스미션 로그인 정보
+var TmPort string
+var TmUsername string
+var TmPassword string
+
 var LogFilePath string = "./log/telegram_bot.log"
 
 func init() {
@@ -47,4 +52,12 @@ func init() {
 		log.Fatalln(chatIdErr)
 	}
 	ChatId = int64(chatIdInt)
+
+	TmPort = os.Getenv("TRANSMISSION_PORT")
+	TmUsername = os.Getenv("TRANSMISSION_USERNAME")
+	TmPassword = os.Getenv("TRANSMISSION_PASSWORD")
+
+	log.Println("TransmissionPort:", TmPort)
+	log.Println("TransmissionUsername:", TmUsername)
+	log.Println("TransmissionPassword:", TmPassword)
 }

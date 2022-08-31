@@ -1,13 +1,16 @@
 package bot
 
 import (
+	"bytes"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"log"
+	"os/exec"
 	"strings"
 	"telegram-bot/config"
 	"telegram-bot/file"
 	"telegram-bot/transmission"
 	"telegram-bot/util"
+	"time"
 )
 
 var Bot *tgbotapi.BotAPI
@@ -41,6 +44,24 @@ func init() {
 			}
 		}
 	}()
+
+	checkCurrentList()
+}
+
+func checkCurrentList() {
+	for {
+		cmd := exec.Command("transmission-remote", config.TmPort, "--auth", config.TmUsername+":"+config.TmPassword, "-l")
+		var outb, errb bytes.Buffer
+		cmd.Stdout = &outb
+		cmd.Stderr = &errb
+
+		if err := cmd.Run(); err != nil {
+			log.Println(err)
+		}
+
+		log.Println("Cmd Result:", outb.String(), "err:", errb.String())
+		time.Sleep(10 * time.Second)
+	}
 }
 
 func commandControl(command string) {
