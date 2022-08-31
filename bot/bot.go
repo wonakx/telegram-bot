@@ -67,10 +67,13 @@ func checkCurrentList() {
 		for k, row := range split[1:] {
 			log.Print("idx:", k, "value:", row, " ")
 			fields := strings.Fields(row)
-			id := fields[0]
-			done := fields[1]
-			status := fields[6]
-			log.Println("id:", id, "done:", done, "status:", status)
+			for idx, field := range fields {
+				log.Println("idx:", idx, "field:", field)
+			}
+			//id := fields[0]
+			//done := fields[1]
+			//status := fields[6]
+			//log.Println("id:", id, "done:", done, "status:", status)
 		}
 
 		time.Sleep(10 * time.Second)
