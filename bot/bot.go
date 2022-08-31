@@ -63,10 +63,8 @@ func checkCurrentList() {
 
 		torrentList := outb.String()
 		split := strings.Split(torrentList, "\n")
-		for k, row := range split[1 : len(split)-2] {
-			log.Println("rowidx:", k, "value:", row, " ")
+		for _, row := range split[1 : len(split)-2] {
 			fields := strings.Fields(row)
-
 			id := fields[0]
 			progress := fields[1]
 			log.Println("ID:", id, "progress:", progress)
