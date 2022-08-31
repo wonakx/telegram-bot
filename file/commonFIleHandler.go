@@ -9,6 +9,7 @@ import (
 )
 
 var CommonFileChan = make(chan CommonFile)
+var CommonFileRespChan = make(chan string)
 
 type CommonFile struct {
 	FileName string
@@ -29,6 +30,8 @@ func addCommonFIle() {
 
 			receiveFile := util.GetFileByHttpRequest(url, commonFilePath)
 			log.Println("common file received!", receiveFile.Name())
+
+			CommonFileRespChan <- commonFile.FileName + " 파일이 이동 됨."
 		}
 	}()
 }

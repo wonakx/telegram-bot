@@ -17,9 +17,6 @@ var torrFileChan = transmission.TorrentFileChan
 var subFileChan = file.SubtitleFileChan
 var CommonFileChan = file.CommonFileChan
 
-var transRespChan = transmission.TransRespChan
-var torrentRespChan = transmission.TorrentRespChan
-
 func init() {
 
 	Bot, _ = tgbotapi.NewBotAPI(config.Token)
@@ -94,21 +91,35 @@ func fileControl(document *tgbotapi.Document) {
 	}
 }
 
+var transRespChan = transmission.TransRespChan
+var torrentRespChan = transmission.TorrentRespChan
+
+var subtitleRespChan = file.SubtitleFileRespChan
+var commonRespChan = file.CommonFileRespChan
+
 func commandResp() {
 	for {
 		select {
 		case transResp := <-transRespChan:
-			send, err := Bot.Send(tgbotapi.NewMessage(config.ChatId, transResp))
+			_, err := Bot.Send(tgbotapi.NewMessage(config.ChatId, transResp))
 			if err != nil {
 				log.Println("Send Error!", err)
 			}
-			log.Println(send.Text, "send success!")
 		case torrentFileResp := <-torrentRespChan:
-			send, err := Bot.Send(tgbotapi.NewMessage(config.ChatId, torrentFileResp))
+			_, err := Bot.Send(tgbotapi.NewMessage(config.ChatId, torrentFileResp))
 			if err != nil {
 				log.Println("Send Error!", err)
 			}
-			log.Println(send.Text, "send success!")
+		case subtitleResp := <-subtitleRespChan:
+			_, err := Bot.Send(tgbotapi.NewMessage(config.ChatId, subtitleResp))
+			if err != nil {
+				log.Println("Send Error!", err)
+			}
+		case commonFileResp := <-commonRespChan:
+			_, err := Bot.Send(tgbotapi.NewMessage(config.ChatId, commonFileResp))
+			if err != nil {
+				log.Println("Send Error!", err)
+			}
 		}
 	}
 }

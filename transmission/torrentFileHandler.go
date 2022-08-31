@@ -39,7 +39,7 @@ func addTorrentFIle() {
 			}
 			log.Println(command)
 
-			TorrentRespChan <- torrentFile.FileName + " is moved to transmission watch dir."
+			TorrentRespChan <- torrentFile.FileName + " watch 디렉토리로 파일이 이동 됨."
 		}
 	}()
 }
