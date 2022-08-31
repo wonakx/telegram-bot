@@ -67,7 +67,8 @@ func checkCurrentList() {
 		log.Println(len(split))
 		for k, row := range split[1 : len(split)-2] {
 			log.Println("rowidx:", k, "value:", row, " ")
-			fields := strings.Fields(row)
+			//fields := strings.Fields(row)
+			fields := strings.Split(row, "\t")
 			for idx, field := range fields {
 				log.Println("idx:", idx, "field:", field)
 			}
