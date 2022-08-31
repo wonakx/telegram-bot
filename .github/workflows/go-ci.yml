@@ -42,25 +42,21 @@ jobs:
         source: "./telegram-bot-go"
         target: ${{ secrets.TARGET_DIR }}/
         
-    - name: SSH Remote Commands
+    - name: SSH Execute Commands
       # You may pin to the exact commit or the version.
-      # uses: appleboy/ssh-action@f9010ff7f1bbd7db1a0b4bab661437550cea20c0
-      uses: appleboy/ssh-action@v0.1.5
+      # uses: JimCronqvist/action-ssh@1c03e01b4ac39da814b45cfd2924c2df0ff1396f
+      uses: JimCronqvist/action-ssh@0.1.1
       with:
-        # ssh host
-        host: ${{ secrets.HOST }}
-        # ssh port
-        port: ${{ secrets.PORT }}
-        # ssh username
-        username: ${{ secrets.USERNAME }}
-        # content of ssh private key. ex raw content of ~/.ssh/id_rsa
-        key: ${{ secrets.SERVER_PRIVATE_KEY }}
-        script_stop: true
-        # execute commands
-        script: |
+        # Command(s) to execute on the remote server.
+        command: |
           source ~/.bash_profile
           cd ${{ secrets.TARGET_DIR }}
-          nohup sh telegram_bot.sh restart 2>&1 & ${{ secrets.TARGET_DIR }}/log/telegram_bot.std
+          sh telegram_bot.sh restart
+        # Hostname or IP address of the remote server(s). Separate multiple servers with a blank space. Example: 'user@mydomain.com:22 user@otherdomain.com:2222'
+        hosts: ${{ secrets.USERNAME }}@${{ secrets.HOST }}:${{ secrets.PORT }}
+        # The private key (id_rsa) content for authenticating to the SSH server(s). Recommended to store it as a GitHub Secret.
+        privateKey: ${{ secrets.SERVER_PRIVATE_KEY }}
+          
           
  
 
