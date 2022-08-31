@@ -9,6 +9,7 @@ import (
 )
 
 var SubtitleFileChan = make(chan SubtitleFile)
+var SubtitleFileRespChan = make(chan string)
 
 type SubtitleFile struct {
 	FileName string
@@ -29,6 +30,8 @@ func addSubtitleFIle() {
 
 			receiveFile := util.GetFileByHttpRequest(url, subtitleFilePath)
 			log.Println("subtitle file received!", receiveFile.Name())
+
+			SubtitleFileRespChan <- subtitleFile.FileName + " 파일이 이동 됨."
 		}
 	}()
 }
