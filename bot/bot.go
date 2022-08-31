@@ -68,8 +68,8 @@ func checkCurrentList() {
 			log.Print("idx:", k, "value:", row, " ")
 			fields := strings.Fields(row)
 			id := fields[0]
-			done := fields[0]
-			status := fields[7]
+			done := fields[1]
+			status := fields[6]
 			log.Println("id:", id, "done:", done, "status:", status)
 		}
 
