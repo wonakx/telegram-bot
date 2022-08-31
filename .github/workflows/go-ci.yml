@@ -57,7 +57,9 @@ jobs:
         key: ${{ secrets.SERVER_PRIVATE_KEY }}
         # execute commands
         script: |
-          ${{ secrets.DEPLOY_SCRIPTS }}
+          source ~/.bash_profile
+          cd ${{ secrets.TARGET_DIR }}
+          nohup sh telegram_bot.sh restart > nohup.out 2> nohup.err < /dev/null &
        
   
           
