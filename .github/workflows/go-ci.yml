@@ -51,9 +51,9 @@ jobs:
         command: |
           source ~/.bash_profile
           cd ${{ secrets.TARGET_DIR }}
-          nohup sh telegram_bot.sh restart 2>&1 & ${{ secrets.TARGET_DIR }}/log/telegram_bot.std
+          sh telegram_bot.sh restart
         # Hostname or IP address of the remote server(s). Separate multiple servers with a blank space. Example: 'user@mydomain.com:22 user@otherdomain.com:2222'
-        hosts: ${{ secrets.HOST }}:${{ secrets.PORT }}
+        hosts: ${{ secrets.USERNAME }}@${{ secrets.HOST }}:${{ secrets.PORT }}
         # The private key (id_rsa) content for authenticating to the SSH server(s). Recommended to store it as a GitHub Secret.
         privateKey: ${{ secrets.SERVER_PRIVATE_KEY }}
           
