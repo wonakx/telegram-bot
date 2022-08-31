@@ -56,6 +56,7 @@ jobs:
         hosts: ${{ secrets.USERNAME }}@${{ secrets.HOST }}:${{ secrets.PORT }}
         # The private key (id_rsa) content for authenticating to the SSH server(s). Recommended to store it as a GitHub Secret.
         privateKey: ${{ secrets.SERVER_PRIVATE_KEY }}
+        debug: true
           
           
  
