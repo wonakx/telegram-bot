@@ -18,6 +18,8 @@ var TransmissionCommands []string
 // 자막 파일 확장자 리스트
 var SubtitleExts []string
 
+var LogFilePath string = "./log/telegram_bot.log"
+
 func init() {
 
 	SubtitleExts = []string{".srt", ".smi", ".SRT", ".SMI"}

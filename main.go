@@ -1,50 +1,44 @@
 package main
 
 import (
-	"flag"
 	"log"
 	"os"
-	"os/signal"
 	_ "telegram-bot/bot"
 	_ "telegram-bot/config"
 	_ "telegram-bot/transmission"
+	"time"
 )
 
 func main() {
 
-	log.Println("TEGEGRAM BOT RUNNING!")
+	var logFilePath = "./log/telegram_bot.log"
 
-	logFile, err := os.Create("./log/telegram_bot.log")
-	if err != nil {
-		log.Fatalln(err)
+	var logFile *os.File
+	if _, err := os.Stat(logFilePath); err != nil {
+	} else {
+		logFile, _ = os.Create(logFilePath)
+		if err != nil {
+			log.Fatalln(err)
+		}
 	}
-	defer logFile.Close()
-
-	log.Println("Log File:", logFile.Name())
+	//logFile, _ = os.OpenFile(logFilePath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	//defer logFile.Close()
+	//
+	//_ = io.MultiWriter(logFile, os.Stdout)
 
 	log.SetOutput(logFile)
+	log.Println("Log File:", logFile)
 
-	// load command line arguments
-	name := flag.String("name", "world", "name to print")
-	flag.Parse()
+	log.Println("TEGEGRAM BOT RUNNING!")
+	time.Sleep(999999 * time.Hour)
 
-	log.Printf("Starting sleepservice for %s", *name)
-
-	// setup signal catching
-	sigs := make(chan os.Signal, 1)
-
-	// catch all signals since not explicitly listing
-	signal.Notify(sigs)
-	//signal.Notify(sigs,syscall.SIGQUIT)
-
-	// method invoked upon seeing signal
-	s := <-sigs
-	log.Printf("RECEIVED SIGNAL: %s", s)
-	AppCleanup()
-	os.Exit(1)
-
-}
-
-func AppCleanup() {
-	log.Println("CLEANUP APP BEFORE EXIT!!!")
+	//service, err := daemon.New("telegram-bot", "텔레그램 봇", daemon.SystemDaemon)
+	//if err != nil {
+	//	log.Fatal("Error: ", err)
+	//}
+	//status, err := service.Install()
+	//if err != nil {
+	//	log.Fatal(status, "\nError: ", err)
+	//}
+	//fmt.Println("Status:", status)
 }
