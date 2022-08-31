@@ -59,23 +59,17 @@ func checkCurrentList() {
 			log.Println(err)
 		}
 
-		log.Println("Cmd Result:\n", outb.String())
+		//log.Println("Cmd Result:\n", outb.String())
 
 		torrentList := outb.String()
 		split := strings.Split(torrentList, "\n")
-		log.Println(strings.Join(split, " "))
-		log.Println(len(split))
 		for k, row := range split[1 : len(split)-2] {
 			log.Println("rowidx:", k, "value:", row, " ")
-			//fields := strings.Fields(row)
-			fields := strings.Split(row, "\t")
-			for idx, field := range fields {
-				log.Println("idx:", idx, "field:", field)
-			}
-			//id := fields[0]
-			//done := fields[1]
-			//status := fields[6]
-			//log.Println("id:", id, "done:", done, "status:", status)
+			fields := strings.Fields(row)
+
+			id := fields[0]
+			progress := fields[1]
+			log.Println("ID:", id, "progress:", progress)
 		}
 
 		time.Sleep(10 * time.Second)
