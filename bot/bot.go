@@ -60,6 +60,14 @@ func checkCurrentList() {
 		}
 
 		log.Println("Cmd Result:", outb.String(), "err:", errb.String())
+
+		torrentList := outb.String()
+		split := strings.Split(torrentList, "\n")
+		log.Println(strings.Join(split, " "))
+		for k, v := range split {
+			log.Print("idx:", k, "value:", v, " ")
+		}
+
 		time.Sleep(10 * time.Second)
 	}
 }
