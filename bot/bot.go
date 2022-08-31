@@ -18,6 +18,7 @@ var subFileChan = file.SubtitleFileChan
 var CommonFileChan = file.CommonFileChan
 
 var transRespChan = transmission.TransRespChan
+var torrentRespChan = transmission.TorrentRespChan
 
 func init() {
 
@@ -98,6 +99,12 @@ func commandResp() {
 		select {
 		case transResp := <-transRespChan:
 			send, err := Bot.Send(tgbotapi.NewMessage(config.ChatId, transResp))
+			if err != nil {
+				log.Println("Send Error!", err)
+			}
+			log.Println(send.Text, "send success!")
+		case torrentFileResp := <-torrentRespChan:
+			send, err := Bot.Send(tgbotapi.NewMessage(config.ChatId, torrentFileResp))
 			if err != nil {
 				log.Println("Send Error!", err)
 			}

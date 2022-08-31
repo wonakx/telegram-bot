@@ -8,8 +8,10 @@ import (
 	"telegram-bot/util"
 )
 
-var TorrentFileChan = make(chan TorrentFile)
 var token = config.Token
+
+var TorrentFileChan = make(chan TorrentFile)
+var TorrentRespChan = make(chan string)
 
 type TorrentFile struct {
 	FileName string
@@ -36,6 +38,8 @@ func addTorrentFIle() {
 				log.Println(err)
 			}
 			log.Println(command)
+
+			TorrentRespChan <- torrentFile.FileName + " is moved to transmission watch dir."
 		}
 	}()
 }
