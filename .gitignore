@@ -2,3 +2,5 @@ temp
 .idea
 settings.yml
 telegram-bot
+log
+log/*
