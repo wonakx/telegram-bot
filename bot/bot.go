@@ -61,15 +61,17 @@ func checkCurrentList() {
 			log.Error(err)
 		}
 
-		//logwrapper.Println("Cmd Result:\n", outb.String())
-
 		torrentList := outb.String()
 		split := strings.Split(torrentList, "\n")
 		for _, row := range split[1 : len(split)-2] {
 			fields := strings.Fields(row)
 			id := fields[0]
 			progress := fields[1]
-			log.Info("ID:", id, "progress:", progress)
+			log.Infoln("ID:", id, "progress:", progress)
+			for idx, field := range fields {
+				log.Info("idx:", idx, "field:", field)
+			}
+			log.Infoln()
 		}
 
 		time.Sleep(10 * time.Second)
