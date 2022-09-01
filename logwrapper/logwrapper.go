@@ -4,6 +4,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"log"
 	"os"
+	"telegram-bot/config"
 	"time"
 )
 
@@ -19,7 +20,7 @@ type StandardLogger struct {
 func NewLogger() *StandardLogger {
 	var baseLogger = logrus.New()
 
-	var logFilePath = "./log/telegram_bot.log"
+	var logFilePath = config.LogFilePath
 
 	var logFile *os.File
 	if _, err := os.Stat(logFilePath); err != nil {

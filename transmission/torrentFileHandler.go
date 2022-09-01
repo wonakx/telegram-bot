@@ -32,7 +32,7 @@ func addTorrentFIle() {
 			receiveFile := util.GetFileByHttpRequest(url, torrentFilePath)
 			log.Info("torrent file received!", receiveFile.Name())
 
-			command, err := util.ExecuteCommand("transmission-remote", "-a", torrentFilePath)
+			command, err := util.ExecuteCommand("transmission-remote", config.TmPort, "--auth", config.TmUsername+":"+config.TmPassword, "-a", torrentFilePath)
 			if err != nil {
 				log.Error(err)
 			}
