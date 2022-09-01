@@ -1,7 +1,6 @@
 package transmission
 
 import (
-	"log"
 	"strconv"
 	"strings"
 )
@@ -24,17 +23,17 @@ func commandHandler() {
 		for command := range transChan {
 			switch command.Command {
 			case "list":
-				log.Print("[" + command.Command + "] receive!\n")
+				log.Info("[" + command.Command + "] receive!\n")
 				TransRespChan <- "list Resp!"
 			case "del":
-				log.Print("[" + command.Command + "] receive!, parmas: " + strings.Join(command.Parmas, " ") + "\n")
+				log.Info("[" + command.Command + "] receive!, parmas: " + strings.Join(command.Parmas, " ") + "\n")
 				for _, p := range command.Parmas {
 					num, err := strconv.Atoi(p)
 					if err != nil {
-						log.Println(p, "is not number")
+						log.Error(p, "is not number")
 						TransRespChan <- p + " is not number"
 					} else {
-						log.Println("del", num)
+						log.Error("del", num)
 						TransRespChan <- p + " is deleted."
 					}
 				}

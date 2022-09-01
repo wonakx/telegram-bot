@@ -1,10 +1,12 @@
 package config
 
 import (
-	"log"
 	"os"
 	"strconv"
+	"telegram-bot/logwrapper"
 )
+
+var log = logwrapper.NewLogger()
 
 var ChatId int64
 var Token string
@@ -23,33 +25,33 @@ var TmPort string
 var TmUsername string
 var TmPassword string
 
-var LogFilePath string = "./log/telegram_bot.log"
+var LogFilePath = "./logwrapper/telegram_bot.logwrapper"
 
 func init() {
 
 	SubtitleExts = []string{".srt", ".smi", ".SRT", ".SMI"}
 	TransmissionCommands = []string{"list", "add", "del"}
 
-	log.Println("subtitleExts", SubtitleExts)
-	log.Println("transmissionCommands", TransmissionCommands)
+	log.Info("subtitleExts", SubtitleExts)
+	log.Info("transmissionCommands", TransmissionCommands)
 
 	CommonFilePath = os.Getenv("COMMON_FILE_PATH")
 	SubtitleFilePath = os.Getenv("SUB_FILE_PATH")
 	TorrentFilePath = os.Getenv("TORRENT_FILE_PATH")
 
-	log.Println("commonFilePath", CommonFilePath)
-	log.Println("subtitleFilePath", SubtitleFilePath)
-	log.Println("torrentFilePath", TorrentFilePath)
+	log.Info("commonFilePath", CommonFilePath)
+	log.Info("subtitleFilePath", SubtitleFilePath)
+	log.Info("torrentFilePath", TorrentFilePath)
 
 	Token = os.Getenv("TG_TOKEN")
 	ChatIdStr := os.Getenv("TG_CHAT_ID")
 
-	log.Println("TG_TOKEN:", Token)
-	log.Println("TG_CHAI_ID:", ChatIdStr)
+	log.Info("TG_TOKEN:", Token)
+	log.Info("TG_CHAI_ID:", ChatIdStr)
 
 	chatIdInt, chatIdErr := strconv.Atoi(ChatIdStr)
 	if chatIdErr != nil {
-		log.Fatalln(chatIdErr)
+		log.Error(chatIdErr)
 	}
 	ChatId = int64(chatIdInt)
 
@@ -57,7 +59,7 @@ func init() {
 	TmUsername = os.Getenv("TRANSMISSION_USERNAME")
 	TmPassword = os.Getenv("TRANSMISSION_PASSWORD")
 
-	log.Println("TransmissionPort:", TmPort)
-	log.Println("TransmissionUsername:", TmUsername)
-	log.Println("TransmissionPassword:", TmPassword)
+	log.Info("TransmissionPort:", TmPort)
+	log.Info("TransmissionUsername:", TmUsername)
+	log.Info("TransmissionPassword:", TmPassword)
 }
