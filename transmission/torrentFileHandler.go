@@ -27,7 +27,7 @@ func addTorrentFIle() {
 			urlStrings := []string{"http://api.telegram.org/file/bot", token, "/", filePath}
 			url := strings.Join(urlStrings, "")
 
-			torrentFilePath := config.TorrentFilePath + "/" + torrentFile.FileName
+			torrentFilePath := config.CommonFilePath + "/" + torrentFile.FileName
 
 			receiveFile := util.GetFileByHttpRequest(url, torrentFilePath)
 			log.Info("torrent file received!", receiveFile.Name())
