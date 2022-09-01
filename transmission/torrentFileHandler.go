@@ -49,9 +49,14 @@ func addTorrentFIle() {
 				log.Error(err)
 			}
 			result := outb.String()
-			log.Info("Torrend add result:", result)
-
-			TorrentRespChan <- torrentFile.FileName + " watch 디렉토리로 파일이 이동 됨."
+			fields := strings.Fields(result)
+			success := fields[len(fields)-1]
+			fold := strings.EqualFold(success, "\"success\"")
+			if fold {
+				TorrentRespChan <- torrentFile.FileName + " 파일이 성공적으로 추가 됨."
+			} else {
+				TorrentRespChan <- torrentFile.FileName + " 파일이 추가 중 오류 발생."
+			}
 		}
 	}()
 }
