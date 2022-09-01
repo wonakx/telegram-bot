@@ -2,10 +2,12 @@ package util
 
 import (
 	"io/ioutil"
-	"log"
 	"net/http"
 	"os"
+	"telegram-bot/logwrapper"
 )
+
+var log = logwrapper.NewLogger()
 
 func GetFileByHttpRequest(url string, destFilePath string) os.File {
 	req, err := http.NewRequest("GET", url, nil)

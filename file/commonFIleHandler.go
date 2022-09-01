@@ -2,7 +2,6 @@ package file
 
 import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
-	"log"
 	"strings"
 	"telegram-bot/config"
 	"telegram-bot/util"
@@ -29,7 +28,7 @@ func addCommonFIle() {
 			commonFilePath := config.CommonFilePath + "/" + commonFile.FileName
 
 			receiveFile := util.GetFileByHttpRequest(url, commonFilePath)
-			log.Println("common file received!", receiveFile.Name())
+			log.Info("common file received!", receiveFile.Name())
 
 			CommonFileRespChan <- commonFile.FileName + " 파일이 이동 됨."
 		}

@@ -2,7 +2,6 @@ package transmission
 
 import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
-	"log"
 	"strings"
 	"telegram-bot/config"
 	"telegram-bot/util"
@@ -31,13 +30,13 @@ func addTorrentFIle() {
 			torrentFilePath := config.TorrentFilePath + "/" + torrentFile.FileName
 
 			receiveFile := util.GetFileByHttpRequest(url, torrentFilePath)
-			log.Println("torrent file received!", receiveFile.Name())
+			log.Info("torrent file received!", receiveFile.Name())
 
 			command, err := util.ExecuteCommand("transmission-remote", "-a", torrentFilePath)
 			if err != nil {
-				log.Println(err)
+				log.Error(err)
 			}
-			log.Println(command)
+			log.Info(command)
 
 			TorrentRespChan <- torrentFile.FileName + " watch 디렉토리로 파일이 이동 됨."
 		}

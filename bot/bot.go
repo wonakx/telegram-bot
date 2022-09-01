@@ -3,15 +3,17 @@ package bot
 import (
 	"bytes"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
-	"log"
 	"os/exec"
 	"strings"
 	"telegram-bot/config"
 	"telegram-bot/file"
+	"telegram-bot/logwrapper"
 	"telegram-bot/transmission"
 	"telegram-bot/util"
 	"time"
 )
+
+var log = logwrapper.NewLogger()
 
 var Bot *tgbotapi.BotAPI
 
@@ -34,7 +36,7 @@ func init() {
 	go func() {
 		for update := range updates {
 			if update.Message != nil {
-				log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
+				log.Infof("[%s] %s", update.Message.From.UserName, update.Message.Text)
 
 				go commandControl(update.Message.Text)
 
@@ -45,7 +47,7 @@ func init() {
 		}
 	}()
 
-	checkCurrentList()
+	//checkCurrentList()
 }
 
 func checkCurrentList() {
@@ -56,10 +58,10 @@ func checkCurrentList() {
 		cmd.Stderr = &errb
 
 		if err := cmd.Run(); err != nil {
-			log.Println(err)
+			log.Error(err)
 		}
 
-		//log.Println("Cmd Result:\n", outb.String())
+		//logwrapper.Println("Cmd Result:\n", outb.String())
 
 		torrentList := outb.String()
 		split := strings.Split(torrentList, "\n")
@@ -67,7 +69,7 @@ func checkCurrentList() {
 			fields := strings.Fields(row)
 			id := fields[0]
 			progress := fields[1]
-			log.Println("ID:", id, "progress:", progress)
+			log.Info("ID:", id, "progress:", progress)
 		}
 
 		time.Sleep(10 * time.Second)
@@ -83,7 +85,7 @@ func commandControl(command string) {
 			Parmas:  commandFactors[1:],
 		}
 		transChan <- transCommand
-		log.Println("Send Command", command, "to TransChan")
+		log.Info("Send Command", command, "to TransChan")
 	}
 }
 
@@ -93,7 +95,7 @@ func fileControl(document *tgbotapi.Document) {
 		recvFile, fileErr := Bot.GetFile(fileConfig)
 
 		if fileErr != nil {
-			log.Fatalln(fileErr)
+			log.Error(fileErr)
 		}
 
 		if strings.HasSuffix(document.FileName, ".torrent") {
@@ -104,7 +106,7 @@ func fileControl(document *tgbotapi.Document) {
 			torrFileChan <- torrentFile
 
 		} else if util.ContainsEndWith(config.SubtitleExts, document.FileName) {
-			log.Println("It is not torrent recvFile.", document.FileName)
+			log.Info("It is not torrent recvFile.", document.FileName)
 			subtitleFile := file.SubtitleFile{
 				FileName: document.FileName,
 				File:     recvFile,
@@ -112,7 +114,7 @@ func fileControl(document *tgbotapi.Document) {
 			subFileChan <- subtitleFile
 
 		} else {
-			log.Println("It is normal recvFile.", document.FileName)
+			log.Info("It is normal recvFile.", document.FileName)
 			commonFile := file.CommonFile{
 				FileName: document.FileName,
 				File:     recvFile,
@@ -134,22 +136,22 @@ func commandResp() {
 		case transResp := <-transRespChan:
 			_, err := Bot.Send(tgbotapi.NewMessage(config.ChatId, transResp))
 			if err != nil {
-				log.Println("Send Error!", err)
+				log.Info("Send Error!", err)
 			}
 		case torrentFileResp := <-torrentRespChan:
 			_, err := Bot.Send(tgbotapi.NewMessage(config.ChatId, torrentFileResp))
 			if err != nil {
-				log.Println("Send Error!", err)
+				log.Info("Send Error!", err)
 			}
 		case subtitleResp := <-subtitleRespChan:
 			_, err := Bot.Send(tgbotapi.NewMessage(config.ChatId, subtitleResp))
 			if err != nil {
-				log.Println("Send Error!", err)
+				log.Info("Send Error!", err)
 			}
 		case commonFileResp := <-commonRespChan:
 			_, err := Bot.Send(tgbotapi.NewMessage(config.ChatId, commonFileResp))
 			if err != nil {
-				log.Println("Send Error!", err)
+				log.Info("Send Error!", err)
 			}
 		}
 	}
