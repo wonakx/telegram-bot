@@ -5,9 +5,9 @@ import (
 )
 
 func ExecuteCommand(command string, options ...string) (*string, error) {
-	ls := exec.Command(command, options...)
+	cmd := exec.Command(command, options...)
 
-	if output, err := ls.Output(); err != nil {
+	if output, err := cmd.Output(); err != nil {
 		return nil, err
 	} else {
 		result := string(output)
