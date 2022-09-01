@@ -25,7 +25,7 @@ var TmPort string
 var TmUsername string
 var TmPassword string
 
-var LogFilePath = "./logwrapper/telegram_bot.logwrapper"
+var LogFilePath = "./log/telegram_bot.log"
 
 func init() {
 

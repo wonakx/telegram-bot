@@ -47,7 +47,7 @@ func init() {
 		}
 	}()
 
-	//checkCurrentList()
+	checkCurrentList()
 }
 
 func checkCurrentList() {
