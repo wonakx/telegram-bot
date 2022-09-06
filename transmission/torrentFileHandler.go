@@ -38,7 +38,7 @@ func addTorrentFIle() {
 			var respMsg string
 			torrent, taddErr := Client.TorrentAddFile(context.TODO(), torrentFilePath)
 			if taddErr != nil {
-				respMsg = "[" + strconv.FormatInt(*torrent.ID, 10) + "] " + *torrent.Name + " 파일이 추가 실패."
+				respMsg = torrentFile.FileName + " 파일 추가 실패."
 				log.Error(taddErr)
 			} else {
 				log.Info("Torrent Info: ", torrent)
