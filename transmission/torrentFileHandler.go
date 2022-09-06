@@ -1,9 +1,9 @@
 package transmission
 
 import (
-	"bytes"
+	"context"
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
-	"os/exec"
+	"strconv"
 	"strings"
 	"telegram-bot/config"
 	"telegram-bot/util"
@@ -20,6 +20,7 @@ type TorrentFile struct {
 }
 
 func addTorrentFIle() {
+
 	go func() {
 		for torrentFile := range TorrentFileChan {
 			file := torrentFile.File
@@ -34,29 +35,34 @@ func addTorrentFIle() {
 			receiveFile := util.GetFileByHttpRequest(url, torrentFilePath)
 			log.Info("torrent file received!", receiveFile.Name())
 
-			//command, err := util.ExecuteCommand("transmission-remote", config.TmPort, "--auth", config.TmUsername+":"+config.TmPassword, "-a", torrentFilePath)
+			var respMsg string
+			torrent, taddErr := Client.TorrentAddFile(context.TODO(), torrentFilePath)
+			if taddErr != nil {
+				respMsg = "[" + strconv.FormatInt(*torrent.ID, 10) + "] " + *torrent.Name + " 파일이 추가 실패."
+				log.Error(taddErr)
+			} else {
+				log.Info("Torrent Info: ", torrent)
+				respMsg = "[" + strconv.FormatInt(*torrent.ID, 10) + "] " + *torrent.Name + " 파일이 성공적으로 추가 됨."
+			}
+			TorrentRespChan <- respMsg
+
+			//cmd := exec.Command("transmission-remote", config.TmPort, "--auth", config.TmUsername+":"+config.TmPassword, "-a", torrentFilePath)
+			//var outb, errb bytes.Buffer
+			//cmd.Stdout = &outb
+			//cmd.Stderr = &errb
+			//err := cmd.Run()
 			//if err != nil {
 			//	log.Error(err)
 			//}
-			//log.Info(command)
-
-			cmd := exec.Command("transmission-remote", config.TmPort, "--auth", config.TmUsername+":"+config.TmPassword, "-a", torrentFilePath)
-			var outb, errb bytes.Buffer
-			cmd.Stdout = &outb
-			cmd.Stderr = &errb
-			err := cmd.Run()
-			if err != nil {
-				log.Error(err)
-			}
-			result := outb.String()
-			fields := strings.Fields(result)
-			success := fields[len(fields)-1]
-			fold := strings.EqualFold(success, "\"success\"")
-			if fold {
-				TorrentRespChan <- torrentFile.FileName + " 파일이 성공적으로 추가 됨."
-			} else {
-				TorrentRespChan <- torrentFile.FileName + " 파일이 추가 중 오류 발생."
-			}
+			//result := outb.String()
+			//fields := strings.Fields(result)
+			//success := fields[len(fields)-1]
+			//fold := strings.EqualFold(success, "\"success\"")
+			//if fold {
+			//	TorrentRespChan <- torrentFile.FileName + " 파일이 성공적으로 추가 됨."
+			//} else {
+			//	TorrentRespChan <- torrentFile.FileName + " 파일이 추가 중 오류 발생."
+			//}
 		}
 	}()
 }
