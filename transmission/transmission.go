@@ -23,6 +23,7 @@ func init() {
 		HTTPS:       false,
 		Port:        9091,
 		HTTPTimeout: 10,
+		Debug:       true,
 	}
 
 	var err error
