@@ -19,6 +19,7 @@ var TransmissionCommands []string
 var SubtitleExts []string
 
 // 트랜스미션 로그인 정보
+var TmHost string
 var TmPort string
 var TmUsername string
 var TmPassword string
@@ -43,6 +44,7 @@ func init() {
 	}
 	ChatId = int64(chatIdInt)
 
+	TmHost = os.Getenv("TRANSMISSION_HOST")
 	TmPort = os.Getenv("TRANSMISSION_PORT")
 	TmUsername = os.Getenv("TRANSMISSION_USERNAME")
 	TmPassword = os.Getenv("TRANSMISSION_PASSWORD")
