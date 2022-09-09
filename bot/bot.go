@@ -135,10 +135,8 @@ func fileControl(document *tgbotapi.Document) {
 }
 
 var transRespChan = transmission.TransRespChan
-var torrentRespChan = transmission.TorrentRespChan
 
-var subtitleRespChan = file.SubtitleFileRespChan
-var commonRespChan = file.CommonFileRespChan
+var fileRespChan = file.FileRespChan
 
 func commandResp() {
 	for {
@@ -148,18 +146,8 @@ func commandResp() {
 			if err != nil {
 				log.Info("Send Error!", err)
 			}
-		case torrentFileResp := <-torrentRespChan:
-			_, err := Bot.Send(tgbotapi.NewMessage(config.ChatId, torrentFileResp))
-			if err != nil {
-				log.Info("Send Error!", err)
-			}
-		case subtitleResp := <-subtitleRespChan:
-			_, err := Bot.Send(tgbotapi.NewMessage(config.ChatId, subtitleResp))
-			if err != nil {
-				log.Info("Send Error!", err)
-			}
-		case commonFileResp := <-commonRespChan:
-			_, err := Bot.Send(tgbotapi.NewMessage(config.ChatId, commonFileResp))
+		case fileResp := <-fileRespChan:
+			_, err := Bot.Send(tgbotapi.NewMessage(config.ChatId, fileResp))
 			if err != nil {
 				log.Info("Send Error!", err)
 			}

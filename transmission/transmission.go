@@ -8,15 +8,16 @@ import (
 )
 
 var log = logwrapper.NewLogger()
-
 var Client *transmissionrpc.Client
+
+var TransRespChan = make(chan string)
 
 func init() {
 
 	transmissionConfig := transmissionrpc.AdvancedConfig{
 		HTTPS:       true,
 		Port:        443,
-		HTTPTimeout: 10 * time.Second,
+		HTTPTimeout: 20 * time.Second,
 		Debug:       true,
 	}
 
