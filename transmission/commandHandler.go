@@ -7,8 +7,6 @@ import (
 
 var TransChan = make(chan TransCommand)
 
-var TransRespChan = make(chan string)
-
 type TransCommand struct {
 	Command string
 	Parmas  []string

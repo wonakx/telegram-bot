@@ -12,7 +12,6 @@ import (
 var token = config.Token
 
 var TorrentFileChan = make(chan TorrentFile)
-var TorrentRespChan = make(chan string)
 
 type TorrentFile struct {
 	FileName string
@@ -41,28 +40,9 @@ func addTorrentFIle() {
 				respMsg = torrentFile.FileName + " 파일 추가 실패. " + taddErr.Error()
 				log.Error(taddErr)
 			} else {
-				log.Info("Torrent Info: ", torrent)
 				respMsg = "[" + strconv.FormatInt(*torrent.ID, 10) + "] " + *torrent.Name + " 파일이 성공적으로 추가 됨."
 			}
-			TorrentRespChan <- respMsg
-
-			//cmd := exec.Command("transmission-remote", config.TmPort, "--auth", config.TmUsername+":"+config.TmPassword, "-a", torrentFilePath)
-			//var outb, errb bytes.Buffer
-			//cmd.Stdout = &outb
-			//cmd.Stderr = &errb
-			//err := cmd.Run()
-			//if err != nil {
-			//	log.Error(err)
-			//}
-			//result := outb.String()
-			//fields := strings.Fields(result)
-			//success := fields[len(fields)-1]
-			//fold := strings.EqualFold(success, "\"success\"")
-			//if fold {
-			//	TorrentRespChan <- torrentFile.FileName + " 파일이 성공적으로 추가 됨."
-			//} else {
-			//	TorrentRespChan <- torrentFile.FileName + " 파일이 추가 중 오류 발생."
-			//}
+			TransRespChan <- respMsg
 		}
 	}()
 }
