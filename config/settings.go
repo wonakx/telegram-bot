@@ -29,7 +29,7 @@ var LogFilePath = "./log/telegram_bot.log"
 func init() {
 
 	SubtitleExts = []string{".srt", ".smi", ".SRT", ".SMI"}
-	TransmissionCommands = []string{"list", "add", "del"}
+	TransmissionCommands = []string{"list", "li", "add", "del"}
 
 	CommonFilePath = os.Getenv("COMMON_FILE_PATH")
 	SubtitleFilePath = os.Getenv("SUB_FILE_PATH")
